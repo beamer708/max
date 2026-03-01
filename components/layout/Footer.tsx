@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { companyInfo, navLinks } from "@/lib/site-data";
 
@@ -6,7 +7,13 @@ export function Footer() {
     <footer className="bg-[#0F1E2E] py-14 text-slate-200">
       <div className="section-container grid gap-10 md:grid-cols-3">
         <div>
-          <h3 className="text-lg font-bold text-white">MNCK Property Maintenance</h3>
+          <Image
+            src="/MNCKLogo.svg"
+            alt="MNCK Property Maintenance"
+            width={260}
+            height={82}
+            className="h-10 w-auto"
+          />
           <p className="mt-3 text-sm leading-7 text-slate-300">
             Trusted maintenance support for homes and businesses throughout Delaware
             County, PA.

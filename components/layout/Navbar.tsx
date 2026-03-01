@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -38,8 +39,19 @@ export function Navbar() {
           isScrolled ? "h-16" : "h-20"
         }`}
       >
-        <Link href="/" className="text-base font-bold text-[#0F1E2E] sm:text-lg">
-          MNCK Property Maintenance
+        <Link
+          href="/"
+          className="inline-flex items-center"
+          aria-label="MNCK Property Maintenance home"
+        >
+          <Image
+            src="/MNCKLogo.svg"
+            alt="MNCK Property Maintenance"
+            width={220}
+            height={70}
+            className="h-9 w-auto sm:h-10"
+            priority
+          />
         </Link>
 
         <ul className="hidden items-center gap-5 lg:flex">

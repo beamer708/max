@@ -22,6 +22,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/MNCKLogo.svg",
+    shortcut: "/MNCKLogo.svg",
+    apple: "/MNCKLogo.svg",
+  },
 };
 
 export default function RootLayout({
