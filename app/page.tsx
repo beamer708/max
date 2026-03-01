@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <main className="bg-[#F8FAFC]">
       <section
-        className="relative overflow-hidden py-24 text-white sm:py-32"
+        className="relative overflow-hidden py-20 text-white sm:py-28"
         style={{
           backgroundImage:
             "linear-gradient(120deg, rgba(15,30,46,0.86), rgba(15,30,46,0.62)), url('/projects/project-1.svg')",
@@ -58,21 +58,54 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-white py-8">
+        <div className="section-container grid gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
+              Phone
+            </p>
+            <Link
+              href={companyInfo.phoneHref}
+              className="mt-1 inline-flex text-lg font-semibold text-[#0F1E2E]"
+            >
+              {companyInfo.phoneDisplay}
+            </Link>
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
+              Service Area
+            </p>
+            <p className="mt-1 text-lg font-semibold text-[#0F1E2E]">{companyInfo.location}</p>
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
+              Email
+            </p>
+            <Link
+              href={`mailto:${companyInfo.email}`}
+              className="mt-1 inline-flex text-lg font-semibold text-[#0F1E2E]"
+            >
+              {companyInfo.email}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-white py-20 sm:py-24">
         <div className="section-container">
           <FadeIn>
             <SectionHeading
               eyebrow="About MNCK"
-              title="Local Expertise You Can Trust"
-              description="MNCK Property Maintenance is veteran-owned, family-operated, and focused on dependable service throughout Delaware County."
+              title="Simple, Reliable Property Maintenance"
+              description="We provide practical maintenance and repair support without overcomplicating the process."
             />
           </FadeIn>
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             <FadeIn className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8">
               <h2 className="text-2xl font-semibold text-[#0F1E2E]">What We Do</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
-                We help homeowners and property operators keep buildings safe,
-                functional, and professional with reliable maintenance and repair.
+                From routine upkeep to common repairs, we focus on doing solid work
+                and keeping communication clear.
               </p>
             </FadeIn>
             <FadeIn
@@ -80,10 +113,11 @@ export default function Home() {
               className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8"
             >
               <h2 className="text-2xl font-semibold text-[#0F1E2E]">Local Focus</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                Our team is based around {companyInfo.location}, delivering fast,
-                local response and practical service recommendations.
-              </p>
+              <ul className="mt-4 space-y-2 text-sm leading-7 text-slate-600">
+                <li>- Veteran Owned &amp; Operated</li>
+                <li>- Family Owned &amp; Operated</li>
+                <li>- Serving {companyInfo.location}</li>
+              </ul>
             </FadeIn>
           </div>
         </div>
@@ -98,12 +132,12 @@ export default function Home() {
               description="Clear, practical service options for residential and commercial properties."
             />
           </FadeIn>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {homeServiceCards.map((service, index) => {
               const Icon = service.icon;
               return (
                 <FadeIn key={service.title} delay={index * 0.05}>
-                  <article className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)]">
+                  <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[var(--card-shadow)]">
                     <div className="inline-flex rounded-xl bg-blue-50 p-3 text-[#1C4EFF]">
                       <Icon size={22} />
                     </div>
@@ -140,7 +174,7 @@ export default function Home() {
           <FadeIn>
             <SectionHeading
               eyebrow="Who We Serve"
-              title="Built for Property Owners and Managers"
+              title="Who We Work With"
             />
           </FadeIn>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -189,7 +223,7 @@ export default function Home() {
           <FadeIn>
             <SectionHeading
               eyebrow="Project Highlights"
-              title="Recent Work"
+              title="Recent Work Samples"
               description="Examples of maintenance and repair work completed by our team."
             />
           </FadeIn>
@@ -225,9 +259,9 @@ export default function Home() {
       <section className="bg-white py-20 sm:py-24">
         <div className="section-container">
           <FadeIn className="rounded-xl bg-[#0F1E2E] p-8 text-center text-white shadow-[var(--card-shadow)] sm:p-10">
-            <h2 className="text-3xl font-bold sm:text-4xl">Need a Quote Today?</h2>
+            <h2 className="text-3xl font-bold sm:text-4xl">Need Service or a Quote?</h2>
             <p className="mt-4 text-slate-200">
-              Call now for fast, local service in {companyInfo.location}.
+              Call now and we will walk you through the next steps.
             </p>
             <Link
               href={companyInfo.phoneHref}

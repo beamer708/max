@@ -20,6 +20,21 @@ export default function ServicesPage() {
         subtitle="Professional property maintenance solutions for homes and businesses in Delaware County."
       />
 
+      <section className="bg-white py-12">
+        <div className="section-container">
+          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-5">
+            <p className="text-sm text-slate-700">
+              Looking for one specific service? Use the service links in the top
+              navigation dropdown, or call{" "}
+              <Link href={companyInfo.phoneHref} className="font-semibold text-[#0F1E2E]">
+                {companyInfo.phoneDisplay}
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
+
       {services.map((service, index) => (
         <section
           key={service.id}
