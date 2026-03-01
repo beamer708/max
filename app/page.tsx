@@ -1,5 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  CheckCircle2,
+  ClipboardCheck,
+  Droplets,
+  Home as HomeIcon,
+  MapPin,
+  PhoneCall,
+  Sparkles,
+  Trees,
+  UsersRound,
+  Wrench,
+  Zap,
+} from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { FaqAccordion } from "@/components/ui/FaqAccordion";
 import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
@@ -23,42 +39,78 @@ export default function Home() {
   return (
     <main className="bg-[#F8FAFC]">
       <section
-        className="relative overflow-hidden py-20 text-white sm:py-28"
+        className="relative overflow-hidden bg-[#0F1E2E] py-16 text-white sm:py-20"
         style={{
           backgroundImage:
-            "linear-gradient(120deg, rgba(15,30,46,0.86), rgba(15,30,46,0.62)), url('/projects/project-1.svg')",
+            "linear-gradient(115deg, rgba(15,30,46,0.95), rgba(15,30,46,0.78)), url('/projects/project-1.svg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="section-container">
-          <FadeIn className="max-w-3xl">
-            <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+        <div className="section-container grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          <FadeIn>
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.13em] text-blue-100">
+              <MapPin size={14} />
+              Delaware County, PA
+            </p>
+            <h1 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
               Reliable Property Maintenance You Can Count On
             </h1>
-            <p className="mt-5 text-lg text-slate-100">
-              Serving <span className="font-semibold">{companyInfo.location}</span>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-100 sm:text-lg">
+              Straightforward service, clear communication, and dependable
+              workmanship for residential and commercial properties.
             </p>
-            <p className="mt-6 text-sm text-blue-100">Call now for a fast quote:</p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href={companyInfo.phoneHref}
+                className="cta-pulse inline-flex min-h-12 items-center justify-center rounded-xl bg-[#1C4EFF] px-7 py-3 text-base font-semibold text-white transition hover:bg-[#163fd3]"
+              >
+                <PhoneCall className="mr-2" size={18} />
+                Call Now
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/40 px-7 py-3 text-base font-semibold text-white transition hover:bg-white/10"
+              >
+                View Services
+              </Link>
+            </div>
+          </FadeIn>
+
+          <FadeIn
+            delay={0.08}
+            className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm sm:p-7"
+          >
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-blue-100">
+              Fast Quote Line
+            </p>
             <Link
               href={companyInfo.phoneHref}
               className="mt-2 inline-flex text-3xl font-bold tracking-tight text-white hover:text-blue-100"
             >
               {companyInfo.phoneDisplay}
             </Link>
-            <div className="mt-8">
-              <Link
-                href={companyInfo.phoneHref}
-                className="cta-pulse inline-flex min-h-12 items-center justify-center rounded-xl bg-[#1C4EFF] px-7 py-3 text-base font-semibold text-white transition hover:bg-[#163fd3]"
-              >
-                Call Now
-              </Link>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-xl bg-white/10 p-3">
+                <p className="text-xs text-blue-100">Service Area</p>
+                <p className="mt-1 text-sm font-semibold">{companyInfo.location}</p>
+              </div>
+              <div className="rounded-xl bg-white/10 p-3">
+                <p className="text-xs text-blue-100">Email</p>
+                <p className="mt-1 text-sm font-semibold break-all">{companyInfo.email}</p>
+              </div>
+              <div className="rounded-xl bg-white/10 p-3 sm:col-span-2">
+                <p className="text-xs text-blue-100">Ownership</p>
+                <p className="mt-1 text-sm font-semibold">
+                  Veteran Owned &amp; Family Owned
+                </p>
+              </div>
             </div>
           </FadeIn>
         </div>
       </section>
 
-      <section className="bg-white py-8">
+      <section className="bg-white py-6">
         <div className="section-container grid gap-4 sm:grid-cols-3">
           <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
@@ -96,28 +148,38 @@ export default function Home() {
           <FadeIn>
             <SectionHeading
               eyebrow="About MNCK"
-              title="Simple, Reliable Property Maintenance"
-              description="We provide practical maintenance and repair support without overcomplicating the process."
+              title="Built for Clear Communication and Reliable Work"
+              description="We keep things simple: understand the issue, explain the solution, and complete the work with care."
             />
           </FadeIn>
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            <FadeIn className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8">
-              <h2 className="text-2xl font-semibold text-[#0F1E2E]">What We Do</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                From routine upkeep to common repairs, we focus on doing solid work
-                and keeping communication clear.
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            <FadeIn className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)]">
+              <BadgeCheck className="text-[#1C4EFF]" />
+              <h2 className="mt-4 text-xl font-semibold text-[#0F1E2E]">Dependable Service</h2>
+              <p className="mt-2 text-sm leading-7 text-slate-600">
+                Consistent maintenance support for homes and businesses.
               </p>
             </FadeIn>
             <FadeIn
               delay={0.06}
-              className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8"
+              className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)]"
             >
-              <h2 className="text-2xl font-semibold text-[#0F1E2E]">Local Focus</h2>
-              <ul className="mt-4 space-y-2 text-sm leading-7 text-slate-600">
-                <li>- Veteran Owned &amp; Operated</li>
-                <li>- Family Owned &amp; Operated</li>
-                <li>- Serving {companyInfo.location}</li>
-              </ul>
+              <Sparkles className="text-[#1C4EFF]" />
+              <h2 className="mt-4 text-xl font-semibold text-[#0F1E2E]">Straightforward Process</h2>
+              <p className="mt-2 text-sm leading-7 text-slate-600">
+                Clear recommendations, practical timelines, and no unnecessary
+                complexity.
+              </p>
+            </FadeIn>
+            <FadeIn
+              delay={0.12}
+              className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)]"
+            >
+              <PhoneCall className="text-[#1C4EFF]" />
+              <h2 className="mt-4 text-xl font-semibold text-[#0F1E2E]">Phone-First Quotes</h2>
+              <p className="mt-2 text-sm leading-7 text-slate-600">
+                Call us directly for quick quote conversations and faster scheduling.
+              </p>
             </FadeIn>
           </div>
         </div>
@@ -128,13 +190,20 @@ export default function Home() {
           <FadeIn>
             <SectionHeading
               eyebrow="Services Overview"
-              title="Complete Maintenance Support"
-              description="Clear, practical service options for residential and commercial properties."
+              title="Core Services"
+              description="Choose a service below for detailed information."
             />
           </FadeIn>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {homeServiceCards.map((service, index) => {
-              const Icon = service.icon;
+              const iconMap = {
+                "residential-maintenance": HomeIcon,
+                "commercial-maintenance": Building2,
+                "preventative-maintenance-contracts": ClipboardCheck,
+                "exterior-landscaping-services": Trees,
+                "general-repairs": Wrench,
+              } as const;
+              const Icon = iconMap[service.id as keyof typeof iconMap] ?? service.icon;
               return (
                 <FadeIn key={service.title} delay={index * 0.05}>
                   <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-[var(--card-shadow)]">
@@ -152,6 +221,7 @@ export default function Home() {
                       className="mt-4 inline-flex text-sm font-semibold text-[#1C4EFF] hover:text-[#163fd3]"
                     >
                       View service
+                      <ArrowRight className="ml-1" size={16} />
                     </Link>
                   </article>
                 </FadeIn>
@@ -181,6 +251,7 @@ export default function Home() {
             {whoWeServe.map((item, index) => (
               <FadeIn key={item.title} delay={index * 0.05}>
                 <article className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)]">
+                  <UsersRound className="text-[#1C4EFF]" size={20} />
                   <h3 className="text-xl font-semibold text-[#0F1E2E]">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
                 </article>
@@ -197,7 +268,8 @@ export default function Home() {
           </FadeIn>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {valuePoints.map((point, index) => {
-              const Icon = point.icon;
+              const iconMap = [BadgeCheck, CheckCircle2, MapPin];
+              const Icon = iconMap[index] ?? point.icon;
               return (
                 <FadeIn key={point.title} delay={index * 0.06}>
                   <article className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)]">
@@ -267,8 +339,19 @@ export default function Home() {
               href={companyInfo.phoneHref}
               className="cta-pulse mt-7 inline-flex min-h-12 items-center justify-center rounded-xl bg-[#1C4EFF] px-8 py-3 text-base font-semibold text-white transition hover:bg-[#163fd3]"
             >
+              <PhoneCall className="mr-2" size={18} />
               Call Now - {companyInfo.phoneDisplay}
             </Link>
+            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-blue-100">
+              <span className="inline-flex items-center gap-1">
+                <Zap size={14} />
+                Fast Response
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Droplets size={14} />
+                Repairs & Maintenance
+              </span>
+            </div>
           </FadeIn>
         </div>
       </section>

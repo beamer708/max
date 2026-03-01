@@ -59,9 +59,15 @@ export const navLinks: NavLink[] = [
 export const serviceDropdownLinks = [
   { label: "Residential Maintenance", href: "/services/residential-maintenance" },
   { label: "Commercial Maintenance", href: "/services/commercial-maintenance" },
-  { label: "Preventative Plans", href: "/services/preventative-maintenance-contracts" },
-  { label: "Repairs", href: "/services/general-repairs" },
-  { label: "Landscaping & Exterior", href: "/services/exterior-landscaping-services" },
+  {
+    label: "Preventative Maintenance Contracts",
+    href: "/services/preventative-maintenance-contracts",
+  },
+  { label: "General Repairs", href: "/services/general-repairs" },
+  {
+    label: "Exterior & Landscaping Services",
+    href: "/services/exterior-landscaping-services",
+  },
 ];
 
 export const services: ServiceItem[] = [
