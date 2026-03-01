@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | MNCK Property Maintenance",
   },
   description:
-    "Property maintenance and repair services for residential and commercial clients.",
+    "Property maintenance and repair services in Delaware County, PA.",
   metadataBase: new URL("https://www.mnckpropertymaintenance.com"),
   alternates: {
     canonical: "/",

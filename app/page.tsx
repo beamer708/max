@@ -1,43 +1,59 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { HomeHero } from "@/components/sections/HomeHero";
-import { CtaBanner } from "@/components/ui/CtaBanner";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { FaqAccordion } from "@/components/ui/FaqAccordion";
+import { GalleryLightbox } from "@/components/ui/GalleryLightbox";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { areaGroups, faqs, projects, services, valuePoints } from "@/lib/site-data";
+import {
+  companyInfo,
+  faqs,
+  homeServiceCards,
+  projects,
+  valuePoints,
+  whoWeServe,
+} from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Home",
   description:
-    "Reliable property maintenance for residential and commercial properties with fast, professional service.",
+    "Reliable property maintenance services in Delaware County, PA. Call MNCK Property Maintenance for a fast quote.",
 };
 
 export default function Home() {
   return (
     <main className="bg-[#F8FAFC]">
-      <HomeHero />
-
-      <section className="py-20 sm:py-24">
+      <section
+        className="relative overflow-hidden py-24 text-white sm:py-32"
+        style={{
+          backgroundImage:
+            "linear-gradient(120deg, rgba(15,30,46,0.86), rgba(15,30,46,0.62)), url('/projects/project-1.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="section-container">
-          <FadeIn>
-            <SectionHeading
-              eyebrow="About MNCK"
-              title="A Trusted Property Maintenance Partner"
-              description="MNCK Property Maintenance provides reliable repair and maintenance support for homes, multi-unit communities, and commercial facilities."
-            />
-          </FadeIn>
-          <FadeIn className="mx-auto mt-8 max-w-3xl rounded-xl border border-slate-200 bg-white p-6 text-center shadow-[var(--card-shadow)] sm:p-8">
-            <p className="text-base leading-8 text-slate-600">
-              Our team combines practical expertise, clear communication, and
-              responsive service to help property owners protect long-term value.
+          <FadeIn className="max-w-3xl">
+            <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+              Reliable Property Maintenance You Can Count On
+            </h1>
+            <p className="mt-5 text-lg text-slate-100">
+              Serving <span className="font-semibold">{companyInfo.location}</span>
             </p>
+            <p className="mt-6 text-sm text-blue-100">Call now for a fast quote:</p>
             <Link
-              href="/about"
-              className="mt-5 inline-flex rounded-xl border border-[#1C4EFF]/30 px-5 py-2.5 text-sm font-semibold text-[#1C4EFF] transition hover:bg-blue-50"
+              href={companyInfo.phoneHref}
+              className="mt-2 inline-flex text-3xl font-bold tracking-tight text-white hover:text-blue-100"
             >
-              Learn More About Us
+              {companyInfo.phoneDisplay}
             </Link>
+            <div className="mt-8">
+              <Link
+                href={companyInfo.phoneHref}
+                className="cta-pulse inline-flex min-h-12 items-center justify-center rounded-xl bg-[#1C4EFF] px-7 py-3 text-base font-semibold text-white transition hover:bg-[#163fd3]"
+              >
+                Call Now
+              </Link>
+            </div>
           </FadeIn>
         </div>
       </section>
@@ -46,17 +62,48 @@ export default function Home() {
         <div className="section-container">
           <FadeIn>
             <SectionHeading
-              eyebrow="Services Snapshot"
-              title="Core Maintenance Services"
-              description="High-demand service categories tailored for both residential and commercial properties."
+              eyebrow="About MNCK"
+              title="Local Expertise You Can Trust"
+              description="MNCK Property Maintenance is veteran-owned, family-operated, and focused on dependable service throughout Delaware County."
+            />
+          </FadeIn>
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            <FadeIn className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8">
+              <h2 className="text-2xl font-semibold text-[#0F1E2E]">What We Do</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                We help homeowners and property operators keep buildings safe,
+                functional, and professional with reliable maintenance and repair.
+              </p>
+            </FadeIn>
+            <FadeIn
+              delay={0.06}
+              className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8"
+            >
+              <h2 className="text-2xl font-semibold text-[#0F1E2E]">Local Focus</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-600">
+                Our team is based around {companyInfo.location}, delivering fast,
+                local response and practical service recommendations.
+              </p>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      <section id="services-overview" className="py-20 sm:py-24">
+        <div className="section-container">
+          <FadeIn>
+            <SectionHeading
+              eyebrow="Services Overview"
+              title="Complete Maintenance Support"
+              description="Clear, practical service options for residential and commercial properties."
             />
           </FadeIn>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => {
+            {homeServiceCards.map((service, index) => {
               const Icon = service.icon;
               return (
                 <FadeIn key={service.title} delay={index * 0.05}>
-                  <article className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)]">
+                  <article className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)]">
                     <div className="inline-flex rounded-xl bg-blue-50 p-3 text-[#1C4EFF]">
                       <Icon size={22} />
                     </div>
@@ -66,6 +113,12 @@ export default function Home() {
                     <p className="mt-3 text-sm leading-7 text-slate-600">
                       {service.description}
                     </p>
+                    <Link
+                      href={`/services/${service.id}`}
+                      className="mt-4 inline-flex text-sm font-semibold text-[#1C4EFF] hover:text-[#163fd3]"
+                    >
+                      View service
+                    </Link>
                   </article>
                 </FadeIn>
               );
@@ -82,13 +135,31 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24">
+      <section className="bg-white py-20 sm:py-24">
         <div className="section-container">
           <FadeIn>
             <SectionHeading
-              eyebrow="Why Choose Us"
-              title="Dependable Service Built on Trust"
+              eyebrow="Who We Serve"
+              title="Built for Property Owners and Managers"
             />
+          </FadeIn>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {whoWeServe.map((item, index) => (
+              <FadeIn key={item.title} delay={index * 0.05}>
+                <article className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)]">
+                  <h3 className="text-xl font-semibold text-[#0F1E2E]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                </article>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24">
+        <div className="section-container">
+          <FadeIn>
+            <SectionHeading eyebrow="Why Choose Us" title="Trusted Local Team" />
           </FadeIn>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {valuePoints.map((point, index) => {
@@ -117,28 +188,13 @@ export default function Home() {
         <div className="section-container">
           <FadeIn>
             <SectionHeading
-              eyebrow="Recent Projects"
-              title="Work Completed Across Property Types"
+              eyebrow="Project Highlights"
+              title="Recent Work"
+              description="Examples of maintenance and repair work completed by our team."
             />
           </FadeIn>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {projects.slice(0, 3).map((project, index) => (
-              <FadeIn key={project.title} delay={index * 0.06}>
-                <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[var(--card-shadow)]">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    width={640}
-                    height={420}
-                    className="h-56 w-full object-cover"
-                  />
-                  <div className="p-5">
-                    <h3 className="text-base font-semibold text-[#0F1E2E]">{project.title}</h3>
-                    <p className="mt-2 text-sm text-slate-600">{project.caption}</p>
-                  </div>
-                </article>
-              </FadeIn>
-            ))}
+          <div className="mt-12">
+            <GalleryLightbox items={projects.slice(0, 3)} />
           </div>
           <div className="mt-8 text-center">
             <Link
@@ -152,59 +208,36 @@ export default function Home() {
       </section>
 
       <section className="py-20 sm:py-24">
-        <div className="section-container grid gap-8 lg:grid-cols-2">
-          <FadeIn className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
+        <div className="section-container">
+          <FadeIn>
             <SectionHeading
-              eyebrow="Service Areas"
-              title="Coverage Across Multiple Counties"
-              description="We serve clients throughout the metro area and surrounding communities."
-              centered={false}
+              eyebrow="FAQ"
+              title="Frequently Asked Questions"
+              description="Quick answers to common service questions."
             />
-            <ul className="mt-6 space-y-3 text-sm text-slate-700">
-              {areaGroups.map((area) => (
-                <li key={area.county}>
-                  <span className="font-semibold text-[#0F1E2E]">{area.county}:</span>{" "}
-                  {area.cities.join(", ")}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/service-areas"
-              className="mt-6 inline-flex rounded-xl bg-[#1C4EFF] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#163fd3]"
-            >
-              View Full Coverage
-            </Link>
           </FadeIn>
+          <div className="mx-auto mt-12 max-w-4xl">
+            <FaqAccordion items={faqs} />
+          </div>
+        </div>
+      </section>
 
-          <FadeIn delay={0.08} className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
-            <SectionHeading
-              eyebrow="FAQ Preview"
-              title="Common Questions"
-              description="Quick answers to what property owners ask us most often."
-              centered={false}
-            />
-            <ul className="mt-6 space-y-3 text-sm text-slate-700">
-              {faqs.slice(0, 3).map((faq) => (
-                <li key={faq.question} className="rounded-lg bg-slate-50 p-3">
-                  <p className="font-semibold text-[#0F1E2E]">{faq.question}</p>
-                  <p className="mt-1 text-slate-600">{faq.answer}</p>
-                </li>
-              ))}
-            </ul>
+      <section className="bg-white py-20 sm:py-24">
+        <div className="section-container">
+          <FadeIn className="rounded-xl bg-[#0F1E2E] p-8 text-center text-white shadow-[var(--card-shadow)] sm:p-10">
+            <h2 className="text-3xl font-bold sm:text-4xl">Need a Quote Today?</h2>
+            <p className="mt-4 text-slate-200">
+              Call now for fast, local service in {companyInfo.location}.
+            </p>
             <Link
-              href="/faqs"
-              className="mt-6 inline-flex rounded-xl border border-[#1C4EFF]/30 px-5 py-3 text-sm font-semibold text-[#1C4EFF] transition hover:bg-blue-50"
+              href={companyInfo.phoneHref}
+              className="cta-pulse mt-7 inline-flex min-h-12 items-center justify-center rounded-xl bg-[#1C4EFF] px-8 py-3 text-base font-semibold text-white transition hover:bg-[#163fd3]"
             >
-              Read All FAQs
+              Call Now - {companyInfo.phoneDisplay}
             </Link>
           </FadeIn>
         </div>
       </section>
-
-      <CtaBanner
-        title="Need Reliable Property Maintenance?"
-        description="Get a fast estimate and a clear scope from a team that prioritizes quality and communication."
-      />
     </main>
   );
 }
