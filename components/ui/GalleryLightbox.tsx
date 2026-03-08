@@ -20,19 +20,21 @@ export function GalleryLightbox({ items }: GalleryLightboxProps) {
             key={item.title}
             type="button"
             onClick={() => setSelected(item)}
-            className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-[var(--card-shadow)]"
+            className="group relative flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-[var(--card-shadow)]"
           >
-            <Image
-              src={item.image}
-              alt={item.title}
-              width={640}
-              height={420}
-              className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E2E]/70 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
-            <div className="p-4">
+            <div className="relative h-56 w-full shrink-0 overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={640}
+                height={420}
+                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E2E]/70 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" />
+            </div>
+            <div className="flex flex-col gap-1 p-4">
               <h3 className="text-base font-semibold text-[#0F1E2E]">{item.title}</h3>
-              <p className="mt-1 text-sm text-slate-600">{item.caption}</p>
+              <p className="text-sm text-slate-600">{item.caption}</p>
             </div>
           </button>
         ))}

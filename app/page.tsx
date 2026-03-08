@@ -47,7 +47,7 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        <div className="section-container grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="section-container grid min-w-0 items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <FadeIn>
             <p className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.13em] text-blue-100">
               <MapPin size={14} />
@@ -110,35 +110,52 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-6">
-        <div className="section-container grid gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
-              Phone
-            </p>
+      <section className="bg-white py-10">
+        <div className="section-container">
+          <FadeIn className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
+                Services At A Glance
+              </p>
+              <h2 className="mt-1 text-2xl font-bold text-[#0F1E2E] sm:text-3xl">
+                What We Can Help With
+              </h2>
+            </div>
             <Link
-              href={companyInfo.phoneHref}
-              className="mt-1 inline-flex text-lg font-semibold text-[#0F1E2E]"
+              href="/services"
+              className="inline-flex items-center text-sm font-semibold text-[#1C4EFF] hover:text-[#163fd3]"
             >
-              {companyInfo.phoneDisplay}
+              View All Services
+              <ArrowRight className="ml-1" size={16} />
             </Link>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
-              Service Area
-            </p>
-            <p className="mt-1 text-lg font-semibold text-[#0F1E2E]">{companyInfo.location}</p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
-              Email
-            </p>
-            <Link
-              href={`mailto:${companyInfo.email}`}
-              className="mt-1 inline-flex text-lg font-semibold text-[#0F1E2E]"
-            >
-              {companyInfo.email}
-            </Link>
+          </FadeIn>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {homeServiceCards.map((service, index) => {
+              const iconMap = {
+                "residential-maintenance": HomeIcon,
+                "commercial-maintenance": Building2,
+                "preventative-maintenance-contracts": ClipboardCheck,
+                "exterior-landscaping-services": Trees,
+                "general-repairs": Wrench,
+              } as const;
+              const Icon = iconMap[service.id as keyof typeof iconMap] ?? service.icon;
+
+              return (
+                <FadeIn key={service.id} delay={index * 0.04}>
+                  <article className="h-full rounded-xl border border-slate-200 bg-[#F8FAFC] p-4">
+                    <div className="inline-flex rounded-lg bg-blue-50 p-2 text-[#1C4EFF]">
+                      <Icon size={18} />
+                    </div>
+                    <h3 className="mt-3 text-sm font-semibold leading-6 text-[#0F1E2E]">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 text-xs leading-6 text-slate-600">
+                      {service.description}
+                    </p>
+                  </article>
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </section>

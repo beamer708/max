@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import { companyInfo, navLinks, serviceDropdownLinks } from "@/lib/site-data";
 
@@ -15,12 +15,31 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const isServicesRoute = pathname.startsWith("/services");
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openServices = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setServicesOpen(true);
+  };
+
+  const closeServices = () => {
+    closeTimeoutRef.current = setTimeout(() => setServicesOpen(false), 120);
+  };
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
   }, []);
 
   return (
@@ -58,43 +77,52 @@ export function Navbar() {
           {navLinks.map((link) => {
             if (link.label === "Services") {
               return (
-                <li
-                  key={link.href}
-                  className="relative"
-                  onMouseEnter={() => setServicesOpen(true)}
-                  onMouseLeave={() => setServicesOpen(false)}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setServicesOpen((prev) => !prev)}
-                    className={`flex items-center gap-1 text-sm font-medium transition ${
-                      isServicesRoute
-                        ? "text-[#0F1E2E]"
-                        : "text-slate-600 hover:text-[#0F1E2E]"
-                    }`}
-                    aria-expanded={servicesOpen}
+                <li key={link.href} className="relative pt-2">
+                  <div
+                    className="relative"
+                    onMouseEnter={openServices}
+                    onMouseLeave={closeServices}
                   >
-                    Services
-                    <FiChevronDown className={`transition ${servicesOpen ? "rotate-180" : ""}`} />
-                  </button>
-                  {servicesOpen ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      className="absolute left-0 top-8 w-72 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"
+                    <button
+                      type="button"
+                      onClick={() => setServicesOpen((prev) => !prev)}
+                      className={`flex items-center gap-1 text-sm font-medium transition ${
+                        isServicesRoute
+                          ? "text-[#0F1E2E]"
+                          : "text-slate-600 hover:text-[#0F1E2E]"
+                      }`}
+                      aria-expanded={servicesOpen}
+                      aria-haspopup="true"
                     >
-                      {serviceDropdownLinks.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50 hover:text-[#0F1E2E]"
+                      Services
+                      <FiChevronDown
+                        className={`transition ${servicesOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {servicesOpen ? (
+                        <motion.div
+                          key="services-dropdown"
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 4 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute left-0 top-full z-50 mt-1 w-72 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"
                         >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  ) : null}
+                          {serviceDropdownLinks.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              onClick={() => setServicesOpen(false)}
+                              className="block rounded-lg px-3 py-2.5 text-sm text-slate-700 transition hover:bg-slate-50 hover:text-[#0F1E2E]"
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                  </div>
                 </li>
               );
             }
@@ -156,13 +184,16 @@ export function Navbar() {
                       />
                     </button>
                     {mobileServicesOpen ? (
-                      <div className="mt-2 space-y-2 border-l border-slate-200 pl-4">
+                      <div className="mt-2 space-y-1 border-l-2 border-slate-200 pl-4">
                         {serviceDropdownLinks.map((item) => (
                           <Link
                             key={item.href}
                             href={item.href}
-                            onClick={() => setMenuOpen(false)}
-                            className="block text-sm text-slate-600 hover:text-[#0F1E2E]"
+                            onClick={() => {
+                              setMobileServicesOpen(false);
+                              setMenuOpen(false);
+                            }}
+                            className="block py-2 text-sm text-slate-600 hover:text-[#0F1E2E]"
                           >
                             {item.label}
                           </Link>

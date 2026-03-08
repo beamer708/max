@@ -22,14 +22,14 @@ export default function ContactPage() {
       />
 
       <section className="py-20 sm:py-24">
-        <div className="section-container grid gap-8 lg:grid-cols-2">
-          <FadeIn className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
+        <div className="section-container grid min-w-0 gap-8 lg:grid-cols-2">
+          <FadeIn className="min-w-0 rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
               Call for a Quote
             </p>
             <Link
               href={companyInfo.phoneHref}
-              className="mt-3 inline-flex text-4xl font-bold tracking-tight text-[#0F1E2E] hover:text-[#1C4EFF] sm:text-5xl"
+              className="mt-3 inline-block text-3xl font-bold tracking-tight text-[#0F1E2E] hover:text-[#1C4EFF] sm:text-4xl md:text-5xl"
             >
               {companyInfo.phoneDisplay}
             </Link>
@@ -38,7 +38,7 @@ export default function ContactPage() {
             </p>
           </FadeIn>
 
-          <FadeIn delay={0.08} className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
+          <FadeIn delay={0.08} className="min-w-0 rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
             <SectionHeading
               title="Contact Information"
               description="Reach out by phone for fastest service in Delaware County, PA."

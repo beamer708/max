@@ -27,7 +27,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
               className="flex w-full items-center justify-between gap-4 text-left"
               aria-expanded={isOpen}
             >
-              <span className="text-base font-semibold text-[#0F1E2E]">{item.question}</span>
+              <span className="min-w-0 flex-1 text-base font-semibold text-[#0F1E2E]">{item.question}</span>
               <FiChevronDown
                 className={`shrink-0 text-[#1C4EFF] transition ${isOpen ? "rotate-180" : ""}`}
               />

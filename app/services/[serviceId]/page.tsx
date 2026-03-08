@@ -50,7 +50,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
       />
 
       <section className="bg-white py-20 sm:py-24">
-        <div className="section-container grid gap-8 lg:grid-cols-2">
+        <div className="section-container grid min-w-0 gap-8 lg:grid-cols-2">
           <FadeIn>
             <Image
               src={service.image}
@@ -80,7 +80,7 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
       </section>
 
       <section className="py-20 sm:py-24">
-        <div className="section-container grid gap-8 lg:grid-cols-2">
+        <div className="section-container grid min-w-0 gap-8 lg:grid-cols-2">
           <FadeIn className="rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
             <h3 className="text-2xl font-semibold text-[#0F1E2E]">Best Fit For</h3>
             <ul className="mt-4 space-y-2 text-sm text-slate-700">
@@ -99,16 +99,44 @@ export default async function ServiceDetailPage({ params }: ServiceDetailPagePro
             </p>
             <Link
               href={companyInfo.phoneHref}
-              className="cta-pulse mt-6 inline-flex rounded-xl bg-[#1C4EFF] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#163fd3]"
+              className="cta-pulse mt-6 inline-flex shrink-0 rounded-xl bg-[#1C4EFF] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#163fd3]"
             >
               Call {companyInfo.phoneDisplay}
             </Link>
             <Link
               href="/services"
-              className="mt-3 inline-flex text-sm font-semibold text-blue-100 hover:text-white"
+              className="mt-3 inline-block text-sm font-semibold text-blue-100 hover:text-white"
             >
               Back to all services
             </Link>
+          </FadeIn>
+        </div>
+      </section>
+
+      <section className="bg-white py-20 sm:py-24">
+        <div className="section-container grid min-w-0 gap-8 lg:grid-cols-2">
+          <FadeIn className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8">
+            <h3 className="text-2xl font-semibold text-[#0F1E2E]">
+              What This Service Solves
+            </h3>
+            <ul className="mt-4 space-y-3 text-sm text-slate-700">
+              {(service.solves ?? []).map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-1.5 h-2 w-2 rounded-full bg-[#1C4EFF]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+          <FadeIn
+            delay={0.06}
+            className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-6 shadow-[var(--card-shadow)] sm:p-8"
+          >
+            <h3 className="text-2xl font-semibold text-[#0F1E2E]">Why It Matters</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-700">
+              {service.whyItMatters ??
+                "This service helps protect property condition, reduce unexpected costs, and keep day-to-day operations running smoothly."}
+            </p>
           </FadeIn>
         </div>
       </section>

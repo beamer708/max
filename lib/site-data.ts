@@ -13,6 +13,8 @@ export type ServiceItem = {
   bullets: string[];
   includes: string[];
   idealFor: string[];
+  solves?: string[];
+  whyItMatters?: string;
   icon: IconType;
   image: string;
 };
@@ -53,6 +55,7 @@ export const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
+  { label: "More We Can Do", href: "/more-we-can-do" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -89,6 +92,13 @@ export const services: ServiceItem[] = [
       "Priority recommendations to prevent larger repairs",
     ],
     idealFor: ["Single-family homes", "Townhomes", "Rental turnovers"],
+    solves: [
+      "Recurring small issues that become expensive when ignored",
+      "General wear and tear that affects safety and appearance",
+      "Lack of time for routine home upkeep",
+    ],
+    whyItMatters:
+      "Consistent residential maintenance protects property value, improves day-to-day comfort, and helps prevent emergency repair costs.",
     icon: FiHome,
     image: "/projects/project-1.svg",
   },
@@ -110,6 +120,13 @@ export const services: ServiceItem[] = [
       "Recurring maintenance scheduling",
     ],
     idealFor: ["Offices", "Retail locations", "Multi-unit properties"],
+    solves: [
+      "Deferred maintenance that impacts tenants and operations",
+      "Inconsistent vendor response times across multiple issues",
+      "Downtime caused by unresolved building problems",
+    ],
+    whyItMatters:
+      "Reliable commercial maintenance helps keep facilities professional, functional, and safer for tenants, staff, and visitors.",
     icon: FiBriefcase,
     image: "/projects/project-2.svg",
   },
@@ -131,6 +148,13 @@ export const services: ServiceItem[] = [
       "Plan adjustments based on property needs",
     ],
     idealFor: ["HOAs", "Property managers", "Budget-conscious owners"],
+    solves: [
+      "Unexpected breakdowns from skipped routine checks",
+      "Reactive spending from last-minute repair calls",
+      "Missed early warning signs in critical systems",
+    ],
+    whyItMatters:
+      "Preventative plans reduce surprise costs, improve budgeting, and extend the life of high-value property systems.",
     icon: FiCheckSquare,
     image: "/projects/project-3.svg",
   },
@@ -152,6 +176,13 @@ export const services: ServiceItem[] = [
       "Storm-season exterior preparation",
     ],
     idealFor: ["Residential homes", "HOA common areas", "Commercial fronts"],
+    solves: [
+      "Poor curb appeal from neglected grounds and exterior areas",
+      "Seasonal buildup that creates hazards and drainage issues",
+      "Inconsistent property presentation for tenants or customers",
+    ],
+    whyItMatters:
+      "A clean, maintained exterior improves first impressions, supports safety, and protects surfaces from avoidable damage.",
     icon: FiTool,
     image: "/projects/project-1.svg",
   },
@@ -173,6 +204,13 @@ export const services: ServiceItem[] = [
       "Escalation guidance when specialist work is needed",
     ],
     idealFor: ["Homeowners", "Commercial sites", "Urgent maintenance issues"],
+    solves: [
+      "Everyday electrical and plumbing issues that interrupt use",
+      "Small repair needs that escalate when left unresolved",
+      "Difficulty coordinating multiple repair tasks",
+    ],
+    whyItMatters:
+      "Fast repair response restores normal use quickly and prevents minor issues from becoming major disruptions.",
     icon: FiTool,
     image: "/projects/project-2.svg",
   },

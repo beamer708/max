@@ -41,7 +41,7 @@ export default function ServicesPage() {
           id={service.id}
           className={`${index % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"} py-20 sm:py-24`}
         >
-          <div className="section-container grid items-center gap-8 lg:grid-cols-2">
+          <div className="section-container grid min-w-0 grid-cols-1 items-start gap-8 lg:grid-cols-2">
             <FadeIn className={index % 2 === 1 ? "lg:order-2" : ""}>
               <Image
                 src={service.image}
@@ -51,7 +51,7 @@ export default function ServicesPage() {
                 className="h-72 w-full rounded-xl border border-slate-200 object-cover shadow-[var(--card-shadow)] sm:h-80"
               />
             </FadeIn>
-            <FadeIn delay={0.06} className={index % 2 === 1 ? "lg:order-1" : ""}>
+            <FadeIn delay={0.06} className={`min-w-0 ${index % 2 === 1 ? "lg:order-1" : ""}`}>
               <h2 className="text-3xl font-bold tracking-tight text-[#0F1E2E] sm:text-4xl">
                 {service.title}
               </h2>
@@ -66,16 +66,18 @@ export default function ServicesPage() {
               </ul>
               <Link
                 href={companyInfo.phoneHref}
-                className="cta-pulse mt-7 inline-flex rounded-xl bg-[#1C4EFF] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#163fd3]"
+                className="cta-pulse mt-7 inline-flex shrink-0 rounded-xl bg-[#1C4EFF] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#163fd3]"
               >
                 Call for a Quote
               </Link>
-              <Link
-                href={`/services/${service.id}`}
-                className="mt-3 inline-flex text-sm font-semibold text-[#1C4EFF] hover:text-[#163fd3]"
-              >
-                View full service details
-              </Link>
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+                <Link
+                  href={`/services/${service.id}`}
+                  className="text-sm font-semibold text-[#1C4EFF] hover:text-[#163fd3]"
+                >
+                  View full service details
+                </Link>
+              </div>
             </FadeIn>
           </div>
         </section>

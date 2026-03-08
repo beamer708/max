@@ -51,7 +51,7 @@ export function Footer() {
             <li>
               <Link
                 href={`mailto:${companyInfo.email}`}
-                className="transition hover:text-white"
+                className="break-all transition hover:text-white"
               >
                 {companyInfo.email}
               </Link>
