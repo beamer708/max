@@ -349,11 +349,6 @@ header.scrolled { box-shadow: 0 2px 20px rgba(26,39,68,0.10); }
   color: var(--navy);
   white-space: nowrap;
 }
-.trust-item::before {
-  content: "✓ ";
-  color: var(--orange);
-  font-weight: 700;
-}
 
 /* ────────────────────────────────────────────────────────
    HERO

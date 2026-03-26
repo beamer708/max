@@ -19,10 +19,10 @@ export default function NotFound() {
           </p>
           <div className="notfound-btns">
             <Link href="/" className="btn btn-navy">
-              Back to Home
+              <i className="fa-solid fa-arrow-left" aria-hidden="true" style={{ marginRight: "8px", verticalAlign: "middle" }}></i>Back to Home
             </Link>
             <a href="tel:+12677485636" className="btn btn-orange">
-              &#128222; Call 267-748-5636
+              <i className="fa-solid fa-phone" aria-hidden="true" style={{ marginRight: "8px", verticalAlign: "middle" }}></i>Call 267-748-5636
             </a>
           </div>
         </div>

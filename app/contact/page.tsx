@@ -31,7 +31,9 @@ export default function ContactPage() {
             {/* Phone card */}
             <FadeIn>
               <div className="contact-card">
-                <div className="contact-card-icon">&#128222;</div>
+                <div className="contact-card-icon">
+                  <i className="fa-solid fa-phone" aria-hidden="true" style={{ fontSize: "36px", color: "var(--orange)" }}></i>
+                </div>
                 <h3>Call for a Free Quote</h3>
                 <p>
                   The fastest way to get a price and schedule service. Pete
@@ -50,7 +52,9 @@ export default function ContactPage() {
             {/* Email card */}
             <FadeIn delay={0.08}>
               <div className="contact-card">
-                <div className="contact-card-icon">&#9993;&#65039;</div>
+                <div className="contact-card-icon">
+                  <i className="fa-solid fa-envelope" aria-hidden="true" style={{ fontSize: "36px", color: "var(--orange)" }}></i>
+                </div>
                 <h3>Send an Email</h3>
                 <p>
                   Prefer to write it out? Email us and we&rsquo;ll get back to
@@ -80,7 +84,7 @@ export default function ContactPage() {
           <FadeIn delay={0.1}>
             <div className="contact-info-rows">
               <div className="contact-info-row">
-                <span className="contact-info-row-icon">&#128205;</span>
+                <i className="fa-solid fa-location-dot" aria-hidden="true" style={{ fontSize: "20px", color: "var(--orange)", width: "28px", textAlign: "center", flexShrink: 0 }}></i>
                 <div>
                   <span className="contact-info-label">Service Area</span>
                   <span className="contact-info-value">
@@ -89,7 +93,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="contact-info-row">
-                <span className="contact-info-row-icon">&#127894;</span>
+                <i className="fa-solid fa-shield-halved" aria-hidden="true" style={{ fontSize: "20px", color: "var(--orange)", width: "28px", textAlign: "center", flexShrink: 0 }}></i>
                 <div>
                   <span className="contact-info-label">Ownership</span>
                   <span className="contact-info-value">
@@ -98,7 +102,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="contact-info-row">
-                <span className="contact-info-row-icon">&#10003;</span>
+                <i className="fa-solid fa-certificate" aria-hidden="true" style={{ fontSize: "20px", color: "var(--orange)", width: "28px", textAlign: "center", flexShrink: 0 }}></i>
                 <div>
                   <span className="contact-info-label">Licensed</span>
                   <span className="contact-info-value">
@@ -107,7 +111,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="contact-info-row">
-                <span className="contact-info-row-icon">&#9200;</span>
+                <i className="fa-solid fa-clock" aria-hidden="true" style={{ fontSize: "20px", color: "var(--orange)", width: "28px", textAlign: "center", flexShrink: 0 }}></i>
                 <div>
                   <span className="contact-info-label">Quoting</span>
                   <span className="contact-info-value">

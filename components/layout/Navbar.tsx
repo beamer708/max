@@ -52,7 +52,8 @@ export function Navbar() {
 
         {/* Desktop phone CTA */}
         <a href="tel:+12677485636" className="nav-phone-btn" aria-label="Call 267-748-5636">
-          &#128222; 267-748-5636
+          <i className="fa-solid fa-phone" aria-hidden="true" style={{ fontSize: "13px", marginRight: "6px", verticalAlign: "middle" }}></i>
+          267-748-5636
         </a>
 
         {/* Mobile hamburger */}
@@ -86,7 +87,8 @@ export function Navbar() {
           className="nav-mobile-phone"
           onClick={() => setMenuOpen(false)}
         >
-          &#128222; Call 267-748-5636
+          <i className="fa-solid fa-phone" aria-hidden="true" style={{ fontSize: "13px", marginRight: "6px", verticalAlign: "middle" }}></i>
+          Call 267-748-5636
         </a>
       </div>
     </header>

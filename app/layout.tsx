@@ -47,6 +47,10 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
       </head>
       <body className={`${oswald.variable} ${sourceSerif.variable}`}>
         {/* Loading screen — shown on first load and navigation */}
@@ -61,6 +65,7 @@ export default function RootLayout({
               Delaware County&apos;s Trusted Maintenance Team
             </p>
             <a href="tel:+12677485636" id="loading-phone">
+              <i className="fa-solid fa-phone" aria-hidden="true" style={{ marginRight: "6px" }}></i>
               267-748-5636
             </a>
           </div>

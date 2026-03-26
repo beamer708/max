@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const SERVICES = [
   {
     id: "residential",
-    icon: "🏠",
+    icon: "fa-solid fa-house",
     title: "Residential Maintenance",
     desc: "Routine upkeep and repairs for your home. We handle seasonal maintenance, minor repairs, and ongoing home care.",
     bullets: [
@@ -22,7 +22,7 @@ const SERVICES = [
   },
   {
     id: "commercial",
-    icon: "🏢",
+    icon: "fa-solid fa-building",
     title: "Commercial Maintenance",
     desc: "Reliable maintenance for offices, retail spaces, and multi-unit properties. Scheduled service and priority response for property managers.",
     bullets: [
@@ -33,7 +33,7 @@ const SERVICES = [
   },
   {
     id: "contracts",
-    icon: "📋",
+    icon: "fa-solid fa-clipboard-list",
     title: "Preventative Maintenance Contracts",
     desc: "Quarterly and annual plans that keep your property in top shape year-round. Proactive repairs reduce emergency calls and long-term costs.",
     bullets: [
@@ -44,7 +44,7 @@ const SERVICES = [
   },
   {
     id: "exterior",
-    icon: "🌿",
+    icon: "fa-solid fa-leaf",
     title: "Exterior & Landscaping",
     desc: "Lawn and yard upkeep, seasonal cleanup, walkway maintenance, and exterior improvements.",
     bullets: [
@@ -55,7 +55,7 @@ const SERVICES = [
   },
   {
     id: "repairs",
-    icon: "🔧",
+    icon: "fa-solid fa-wrench",
     title: "General Repairs",
     desc: "Electrical fixture troubleshooting, common plumbing repairs, and general handyman work. Call us — we'll figure it out.",
     bullets: [
@@ -102,7 +102,9 @@ export default function ServicesPage() {
           <div className="container">
             <FadeIn>
               <div className="service-row-inner">
-                <div className="service-icon">{service.icon}</div>
+                <div className="service-icon">
+                    <i className={service.icon} aria-hidden="true" style={{ color: "var(--navy)" }}></i>
+                  </div>
                 <div>
                   <h2>{service.title}</h2>
                   <p style={{ fontSize: "1.0625rem", lineHeight: 1.8, maxWidth: "660px" }}>
@@ -118,7 +120,7 @@ export default function ServicesPage() {
                     className="btn btn-orange"
                     style={{ marginTop: "2rem" }}
                   >
-                    &#128222; Call for a Quote
+                    <i className="fa-solid fa-phone" aria-hidden="true" style={{ marginRight: "8px", verticalAlign: "middle" }}></i>Call for a Quote
                   </a>
                 </div>
               </div>
@@ -142,7 +144,7 @@ export default function ServicesPage() {
               className="btn btn-orange"
               style={{ fontSize: "1.125rem", padding: "1rem 2.5rem" }}
             >
-              &#128222; 267-748-5636
+              <i className="fa-solid fa-phone" aria-hidden="true" style={{ marginRight: "8px", verticalAlign: "middle" }}></i>267-748-5636
             </a>
           </FadeIn>
         </div>

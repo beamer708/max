@@ -16,7 +16,9 @@ export function Footer() {
               Serving Delaware County, PA and surrounding communities.
             </p>
             <div className="footer-badges">
-              <span className="footer-badge">&#127894; Veteran Owned</span>
+              <span className="footer-badge">
+                <i className="fa-solid fa-shield-halved" aria-hidden="true" style={{ marginRight: "6px", color: "var(--orange)" }}></i>Veteran Owned
+              </span>
               <span className="footer-badge">&#128106; Family Owned</span>
               <span className="footer-badge">&#10003; Licensed</span>
             </div>
@@ -33,14 +35,17 @@ export function Footer() {
           {/* Col 3 — Contact */}
           <div>
             <span className="footer-col-label">Contact</span>
-            <a href="tel:+12677485636"                              className="footer-contact-item">
-              &#128222; 267-748-5636
+            <a href="tel:+12677485636" className="footer-contact-item">
+              <i className="fa-solid fa-phone" aria-hidden="true" style={{ fontSize: "14px", color: "var(--orange)", marginRight: "6px", flexShrink: 0 }}></i>
+              267-748-5636
             </a>
-            <a href="mailto:contact@mnckpropertymaintenance.com"   className="footer-contact-item">
-              &#9993;&#65039; contact@mnckpropertymaintenance.com
+            <a href="mailto:contact@mnckpropertymaintenance.com" className="footer-contact-item">
+              <i className="fa-solid fa-envelope" aria-hidden="true" style={{ fontSize: "14px", color: "var(--orange)", marginRight: "6px", flexShrink: 0 }}></i>
+              contact@mnckpropertymaintenance.com
             </a>
             <span className="footer-contact-item" style={{ cursor: "default" }}>
-              &#128205; Delaware County, PA
+              <i className="fa-solid fa-location-dot" aria-hidden="true" style={{ fontSize: "14px", color: "var(--orange)", marginRight: "6px", flexShrink: 0 }}></i>
+              Delaware County, PA
             </span>
           </div>
         </div>
