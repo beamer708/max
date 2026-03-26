@@ -1,87 +1,153 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { PageHero } from "@/components/ui/PageHero";
-import { companyInfo, services } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Residential and commercial maintenance services in Delaware County, PA. Call MNCK Property Maintenance for a quote.",
+    "Residential maintenance, commercial maintenance, maintenance contracts, exterior & landscaping, and general repairs in Delaware County, PA. Call for a free quote.",
 };
+
+const SERVICES = [
+  {
+    id: "residential",
+    icon: "🏠",
+    title: "Residential Maintenance",
+    desc: "Routine upkeep and repairs for your home. We handle seasonal maintenance, minor repairs, and ongoing home care.",
+    bullets: [
+      "Seasonal maintenance & inspections",
+      "Interior and exterior repairs",
+      "Ongoing home upkeep",
+    ],
+  },
+  {
+    id: "commercial",
+    icon: "🏢",
+    title: "Commercial Maintenance",
+    desc: "Reliable maintenance for offices, retail spaces, and multi-unit properties. Scheduled service and priority response for property managers.",
+    bullets: [
+      "Scheduled property maintenance",
+      "Tenant and common-area upkeep",
+      "Priority response available",
+    ],
+  },
+  {
+    id: "contracts",
+    icon: "📋",
+    title: "Preventative Maintenance Contracts",
+    desc: "Quarterly and annual plans that keep your property in top shape year-round. Proactive repairs reduce emergency calls and long-term costs.",
+    bullets: [
+      "Quarterly and annual plan options",
+      "Routine inspection checklists",
+      "Reduces unexpected repair costs",
+    ],
+  },
+  {
+    id: "exterior",
+    icon: "🌿",
+    title: "Exterior & Landscaping",
+    desc: "Lawn and yard upkeep, seasonal cleanup, walkway maintenance, and exterior improvements.",
+    bullets: [
+      "Lawn and yard maintenance",
+      "Seasonal cleanup (spring & fall)",
+      "Walkways and exterior work",
+    ],
+  },
+  {
+    id: "repairs",
+    icon: "🔧",
+    title: "General Repairs",
+    desc: "Electrical fixture troubleshooting, common plumbing repairs, and general handyman work. Call us — we'll figure it out.",
+    bullets: [
+      "Electrical fixture and outlet work",
+      "Common plumbing repairs",
+      "General handyman services",
+    ],
+  },
+];
 
 export default function ServicesPage() {
   return (
-    <main className="bg-[#F8FAFC]">
-      <PageHero
-        eyebrow="MNCK Services"
-        title="Our Services"
-        subtitle="Professional property maintenance solutions for homes and businesses in Delaware County."
-      />
+    <main>
 
-      <section className="bg-white py-12">
-        <div className="section-container">
-          <div className="rounded-xl border border-slate-200 bg-[#F8FAFC] p-5">
-            <p className="text-sm text-slate-700">
-              Looking for one specific service? Use the service links in the top
-              navigation dropdown, or call{" "}
-              <Link href={companyInfo.phoneHref} className="font-semibold text-[#0F1E2E]">
-                {companyInfo.phoneDisplay}
-              </Link>
-              .
+      {/* ── PAGE HEADER ── */}
+      <div className="page-hero">
+        <div className="container">
+          <FadeIn>
+            <h1>Our Services</h1>
+            <p className="page-hero-sub">
+              Call{" "}
+              <a
+                href="tel:+12677485636"
+                style={{ color: "var(--orange)", textDecoration: "none", fontWeight: 600 }}
+              >
+                267-748-5636
+              </a>{" "}
+              for a free quote on any service below.
             </p>
-          </div>
+          </FadeIn>
         </div>
-      </section>
+      </div>
 
-      {services.map((service, index) => (
+      {/* ── SERVICE ROWS ── */}
+      {SERVICES.map((service, i) => (
         <section
           key={service.id}
           id={service.id}
-          className={`${index % 2 === 0 ? "bg-white" : "bg-[#F8FAFC]"} py-20 sm:py-24`}
+          style={{
+            background: i % 2 === 0 ? "var(--white)" : "var(--off-white)",
+            padding: "4.5rem 0",
+          }}
         >
-          <div className="section-container grid min-w-0 grid-cols-1 items-start gap-8 lg:grid-cols-2">
-            <FadeIn className={index % 2 === 1 ? "lg:order-2" : ""}>
-              <Image
-                src={service.image}
-                alt={service.title}
-                width={880}
-                height={520}
-                className="h-72 w-full rounded-xl border border-slate-200 object-cover shadow-[var(--card-shadow)] sm:h-80"
-              />
-            </FadeIn>
-            <FadeIn delay={0.06} className={`min-w-0 ${index % 2 === 1 ? "lg:order-1" : ""}`}>
-              <h2 className="text-3xl font-bold tracking-tight text-[#0F1E2E] sm:text-4xl">
-                {service.title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{service.description}</p>
-              <ul className="mt-6 space-y-2 text-sm text-slate-700">
-                {service.bullets.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-[#1C4EFF]" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={companyInfo.phoneHref}
-                className="cta-pulse mt-7 inline-flex shrink-0 rounded-xl bg-[#1C4EFF] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#163fd3]"
-              >
-                Call for a Quote
-              </Link>
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-                <Link
-                  href={`/services/${service.id}`}
-                  className="text-sm font-semibold text-[#1C4EFF] hover:text-[#163fd3]"
-                >
-                  View full service details
-                </Link>
+          <div className="container">
+            <FadeIn>
+              <div className="service-row-inner">
+                <div className="service-icon">{service.icon}</div>
+                <div>
+                  <h2>{service.title}</h2>
+                  <p style={{ fontSize: "1.0625rem", lineHeight: 1.8, maxWidth: "660px" }}>
+                    {service.desc}
+                  </p>
+                  <ul className="service-bullets" style={{ marginTop: "1.25rem" }}>
+                    {service.bullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                  <a
+                    href="tel:+12677485636"
+                    className="btn btn-orange"
+                    style={{ marginTop: "2rem" }}
+                  >
+                    &#128222; Call for a Quote
+                  </a>
+                </div>
               </div>
             </FadeIn>
           </div>
         </section>
       ))}
+
+      {/* ── BOTTOM CTA ── */}
+      <section className="cta-banner" style={{ padding: "4.5rem 0" }}>
+        <div className="container">
+          <FadeIn>
+            <h2 style={{ color: "#fff", marginBottom: "1.25rem" }}>
+              Don&rsquo;t see what you need?
+            </h2>
+            <p className="sub">
+              Call us anyway &mdash; we&rsquo;ll handle it or point you to someone who can.
+            </p>
+            <a
+              href="tel:+12677485636"
+              className="btn btn-orange"
+              style={{ fontSize: "1.125rem", padding: "1rem 2.5rem" }}
+            >
+              &#128222; 267-748-5636
+            </a>
+          </FadeIn>
+        </div>
+      </section>
+
     </main>
   );
 }

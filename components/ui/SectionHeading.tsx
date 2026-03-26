@@ -12,18 +12,30 @@ export function SectionHeading({
   centered = true,
 }: SectionHeadingProps) {
   return (
-    <div className={centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      {eyebrow ? (
-        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-[#1C4EFF]">
-          {eyebrow}
+    <div
+      style={{
+        maxWidth: "680px",
+        ...(centered
+          ? { margin: "0 auto", textAlign: "center" }
+          : {}),
+      }}
+    >
+      {eyebrow && (
+        <p className="eyebrow">{eyebrow}</p>
+      )}
+      <h2 style={{ marginTop: eyebrow ? "0.75rem" : 0 }}>{title}</h2>
+      {description && (
+        <p
+          style={{
+            marginTop: "1rem",
+            fontSize: "1.05rem",
+            color: "var(--color-text-muted)",
+            lineHeight: 1.7,
+          }}
+        >
+          {description}
         </p>
-      ) : null}
-      <h2 className="text-3xl font-bold tracking-tight text-[#0F1E2E] sm:text-4xl">
-        {title}
-      </h2>
-      {description ? (
-        <p className="mt-4 text-base leading-7 text-slate-600">{description}</p>
-      ) : null}
+      )}
     </div>
   );
 }

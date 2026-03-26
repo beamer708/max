@@ -1,90 +1,126 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { companyInfo } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Call MNCK Property Maintenance for a quote in Delaware County, PA.",
+    "Call or email MNCK Property Maintenance for a free quote. No forms — just call 267-748-5636 or email contact@mnckpropertymaintenance.com.",
 };
 
 export default function ContactPage() {
   return (
-    <main className="bg-[#F8FAFC]">
-      <PageHero
-        eyebrow="Get Started"
-        title="Contact"
-        subtitle="Call us now for a quote - we do not use online quote forms."
-      />
+    <main>
 
-      <section className="py-20 sm:py-24">
-        <div className="section-container grid min-w-0 gap-8 lg:grid-cols-2">
-          <FadeIn className="min-w-0 rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#1C4EFF]">
-              Call for a Quote
-            </p>
-            <Link
-              href={companyInfo.phoneHref}
-              className="mt-3 inline-block text-3xl font-bold tracking-tight text-[#0F1E2E] hover:text-[#1C4EFF] sm:text-4xl md:text-5xl"
-            >
-              {companyInfo.phoneDisplay}
-            </Link>
-            <p className="mt-4 text-sm text-slate-600">
-              Call us now for a quote - we do not use online quote forms.
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={0.08} className="min-w-0 rounded-xl border border-slate-200 bg-white p-6 shadow-[var(--card-shadow)] sm:p-8">
-            <SectionHeading
-              title="Contact Information"
-              description="Reach out by phone for fastest service in Delaware County, PA."
-              centered={false}
-            />
-            <ul className="mt-8 space-y-5 text-sm text-slate-700">
-              <li className="flex items-start gap-3">
-                <FiPhone className="mt-0.5 text-[#1C4EFF]" size={18} />
-                <div>
-                  <p className="font-semibold text-[#0F1E2E]">Phone</p>
-                  <Link href={companyInfo.phoneHref} className="hover:text-[#1C4EFF]">
-                    {companyInfo.phoneDisplay}
-                  </Link>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <FiMail className="mt-0.5 text-[#1C4EFF]" size={18} />
-                <div>
-                  <p className="font-semibold text-[#0F1E2E]">Email</p>
-                  <Link href={`mailto:${companyInfo.email}`} className="hover:text-[#1C4EFF]">
-                    {companyInfo.email}
-                  </Link>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <FiMapPin className="mt-0.5 text-[#1C4EFF]" size={18} />
-                <div>
-                  <p className="font-semibold text-[#0F1E2E]">Service Area</p>
-                  <p>{companyInfo.location}</p>
-                </div>
-              </li>
-            </ul>
-          </FadeIn>
-        </div>
-      </section>
-
-      <section className="bg-white py-20 sm:py-24">
-        <div className="section-container">
-          <FadeIn className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-            <h2 className="text-2xl font-semibold text-[#0F1E2E]">Map Placeholder</h2>
-            <p className="mt-3 text-sm text-slate-600">
-              Embedded map can be added here for Delaware County coverage.
+      {/* ── PAGE HEADER ── */}
+      <div className="page-hero">
+        <div className="container">
+          <FadeIn>
+            <h1>Get in Touch</h1>
+            <p className="page-hero-sub">
+              No forms. Just call or email &mdash; we&rsquo;ll take it from there.
             </p>
           </FadeIn>
         </div>
+      </div>
+
+      {/* ── CONTACT CARDS ── */}
+      <section style={{ background: "var(--off-white)" }}>
+        <div className="container">
+
+          <div className="contact-cards">
+            {/* Phone card */}
+            <FadeIn>
+              <div className="contact-card">
+                <div className="contact-card-icon">&#128222;</div>
+                <h3>Call for a Free Quote</h3>
+                <p>
+                  The fastest way to get a price and schedule service. Pete
+                  answers directly.
+                </p>
+                <a
+                  href="tel:+12677485636"
+                  className="btn btn-orange"
+                  style={{ fontSize: "1.125rem", padding: "1rem 2rem" }}
+                >
+                  267-748-5636
+                </a>
+              </div>
+            </FadeIn>
+
+            {/* Email card */}
+            <FadeIn delay={0.08}>
+              <div className="contact-card">
+                <div className="contact-card-icon">&#9993;&#65039;</div>
+                <h3>Send an Email</h3>
+                <p>
+                  Prefer to write it out? Email us and we&rsquo;ll get back to
+                  you.
+                </p>
+                <a
+                  href="mailto:contact@mnckpropertymaintenance.com"
+                  className="btn btn-orange"
+                  style={{
+                    fontSize: "0.875rem",
+                    padding: "0.875rem 1.25rem",
+                    wordBreak: "break-all",
+                    whiteSpace: "normal",
+                    textTransform: "none",
+                    letterSpacing: "0.01em",
+                    textAlign: "center",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  contact@mnckpropertymaintenance.com
+                </a>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Info rows */}
+          <FadeIn delay={0.1}>
+            <div className="contact-info-rows">
+              <div className="contact-info-row">
+                <span className="contact-info-row-icon">&#128205;</span>
+                <div>
+                  <span className="contact-info-label">Service Area</span>
+                  <span className="contact-info-value">
+                    Delaware County, PA and surrounding communities
+                  </span>
+                </div>
+              </div>
+              <div className="contact-info-row">
+                <span className="contact-info-row-icon">&#127894;</span>
+                <div>
+                  <span className="contact-info-label">Ownership</span>
+                  <span className="contact-info-value">
+                    Veteran Owned &amp; Family Owned &mdash; Pete Ivins
+                  </span>
+                </div>
+              </div>
+              <div className="contact-info-row">
+                <span className="contact-info-row-icon">&#10003;</span>
+                <div>
+                  <span className="contact-info-label">Licensed</span>
+                  <span className="contact-info-value">
+                    Licensed for residential and commercial work
+                  </span>
+                </div>
+              </div>
+              <div className="contact-info-row">
+                <span className="contact-info-row-icon">&#9200;</span>
+                <div>
+                  <span className="contact-info-label">Quoting</span>
+                  <span className="contact-info-value">
+                    All quotes done over the phone. Fast, simple, no paperwork.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+
+        </div>
       </section>
+
     </main>
   );
 }

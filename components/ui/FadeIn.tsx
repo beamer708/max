@@ -1,24 +1,24 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 type FadeInProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  style?: CSSProperties;
 };
 
-export function FadeIn({ children, className, delay = 0 }: FadeInProps) {
+/**
+ * Wraps children with the `reveal` CSS class.
+ * ScrollAnimatorInit sets up an IntersectionObserver that adds `visible`
+ * when the element enters the viewport, triggering the fade-up animation.
+ */
+export function FadeIn({ children, className, delay = 0, style }: FadeInProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45, ease: "easeOut", delay }}
-      className={className}
+    <div
+      className={`reveal${className ? ` ${className}` : ""}`}
+      style={delay ? { transitionDelay: `${delay}s`, ...style } : style}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
