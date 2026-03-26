@@ -152,7 +152,7 @@ export default function HomePage() {
 
           <div className="steps-grid">
             {STEPS.map((step, i) => (
-              <FadeIn key={step.num} delay={i * 0.1}>
+              <FadeIn key={step.title} delay={i * 0.1}>
                 <div className="step">
                   <div className="step-num">
                     <i className={step.icon} aria-hidden="true" style={{ fontSize: "20px", color: "#fff" }}></i>
