@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — MNCK Property Maintenance</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2744;
+      --orange: #e85d04;
+      --white: #ffffff;
+      --offwhite: #f5f4f0;
+      --gray-light: #e5e5e5;
+      --gray-mid: #999;
+      --shadow: 0 2px 12px rgba(26,39,68,0.10);
+    }
+
+    body {
+      font-family: 'Source Serif 4', serif;
+      background: var(--offwhite);
+      color: var(--navy);
+      min-height: 100vh;
+    }
+
+    /* ── LOGIN SCREEN ─────────────────────────────────────── */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #login-screen.hidden { display: none; }
+
+    .login-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 40px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .login-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .login-logo span { color: var(--orange); }
+
+    .login-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 13px 16px;
+      font-size: 17px;
+      font-family: 'Source Serif 4', serif;
+      border: 1.5px solid var(--gray-light);
+      border-radius: 6px;
+      outline: none;
+      color: var(--navy);
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .login-input:focus { border-color: var(--orange); }
+
+    .login-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .login-btn:hover { background: #cc5004; }
+    .login-btn:active { transform: scale(0.98); }
+
+    .login-error {
+      font-family: 'Source Serif 4', serif;
+      font-size: 14px;
+      color: #d32f2f;
+      margin-top: 10px;
+      min-height: 20px;
+    }
+
+    /* ── ANALYTICS PAGE ───────────────────────────────────── */
+    #analytics-page {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #analytics-page.visible { display: flex; }
+
+    /* Top bar */
+    .topbar {
+      background: var(--white);
+      border-bottom: 2px solid var(--gray-light);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--navy);
+    }
+
+    .topbar-logo span { color: var(--orange); }
+
+    .admin-badge {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--orange);
+      color: var(--white);
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .logout-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--navy);
+      background: transparent;
+      border: 1.5px solid var(--navy);
+      border-radius: 4px;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .logout-btn:hover { background: var(--navy); color: var(--white); }
+
+    /* Main content */
+    .content {
+      flex: 1;
+      padding: 36px 32px 48px;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--gray-mid);
+      margin-bottom: 24px;
+    }
+
+    /* Range selector */
+    .range-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .range-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 8px 20px;
+      border-radius: 5px;
+      border: 1.5px solid var(--navy);
+      background: transparent;
+      color: var(--navy);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .range-btn.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--white);
+    }
+
+    .range-btn:not(.active):hover { background: var(--gray-light); }
+
+    /* Stat cards */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 900px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .stat-grid { grid-template-columns: 1fr; } }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 8px;
+      border-top: 4px solid var(--navy);
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-icon {
+      font-size: 20px;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 400;
+    }
+
+    /* Chart */
+    .chart-container {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+
+    .chart-container canvas { width: 100% !important; }
+
+    /* Table */
+    .table-container {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .table-heading {
+      font-family: 'Oswald', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--navy);
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .data-table thead tr {
+      background: var(--navy);
+    }
+
+    .data-table thead th {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-align: left;
+      padding: 12px 20px;
+    }
+
+    .data-table tbody tr:nth-child(even) { background: #f9f8f6; }
+    .data-table tbody tr { border-bottom: 1px solid var(--gray-light); }
+
+    .data-table tbody td {
+      padding: 12px 20px;
+      color: var(--navy);
+    }
+
+    .data-table tbody td:last-child {
+      color: var(--gray-mid);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── LOGIN SCREEN ──────────────────────────────────────── -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">MNCK <span>PROPERTY</span></div>
+      <span class="login-label">Admin Access</span>
+      <input
+        type="password"
+        id="password-input"
+        class="login-input"
+        placeholder="Password"
+        autocomplete="current-password"
+      />
+      <button class="login-btn" id="unlock-btn">Unlock</button>
+      <div class="login-error" id="login-error"></div>
+    </div>
+  </div>
+
+  <!-- ── ANALYTICS PAGE ────────────────────────────────────── -->
+  <div id="analytics-page">
+
+    <header class="topbar">
+      <div>
+        <span class="topbar-logo">MNCK <span>PROPERTY</span></span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </header>
+
+    <main class="content">
+      <h1 class="page-title">Visitor Analytics</h1>
+      <p class="page-subtitle" id="last-updated">Last updated: —</p>
+
+      <div class="range-selector">
+        <button class="range-btn" data-days="3">3 Days</button>
+        <button class="range-btn active" data-days="30">30 Days</button>
+        <button class="range-btn" data-days="90">90 Days</button>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+          <div class="stat-value" id="stat-visitors">0</div>
+          <div class="stat-label">Total Visitors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
+          <div class="stat-value" id="stat-pageviews">0</div>
+          <div class="stat-label">Page Views</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-chart-bar"></i></div>
+          <div class="stat-value" id="stat-top-page" style="font-size:22px;">—</div>
+          <div class="stat-label">Most Visited Page</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+          <div class="stat-value" id="stat-avg-time" style="font-size:22px;">—</div>
+          <div class="stat-label">Avg. Time on Site</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="visitors-chart"></canvas>
+      </div>
+
+      <div class="table-container">
+        <div class="table-heading">Page Breakdown</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Views</th>
+              <th>% of Total</th>
+            </tr>
+          </thead>
+          <tbody id="breakdown-body"></tbody>
+        </table>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // ── CONFIG ──────────────────────────────────────────────────
+    const ADMIN_PASSWORD = "mnck2024secure";
+    const SESSION_KEY    = "mnck_admin_auth";
+
+    // ── AUTH ────────────────────────────────────────────────────
+    const loginScreen    = document.getElementById('login-screen');
+    const analyticsPage  = document.getElementById('analytics-page');
+    const passwordInput  = document.getElementById('password-input');
+    const unlockBtn      = document.getElementById('unlock-btn');
+    const loginError     = document.getElementById('login-error');
+    const logoutBtn      = document.getElementById('logout-btn');
+
+    function showAnalytics() {
+      loginScreen.classList.add('hidden');
+      analyticsPage.classList.add('visible');
+      initAnalytics();
+    }
+
+    function showLogin() {
+      sessionStorage.removeItem(SESSION_KEY);
+      analyticsPage.classList.remove('visible');
+      loginScreen.classList.remove('hidden');
+      passwordInput.value = '';
+      loginError.textContent = '';
+    }
+
+    function attemptLogin() {
+      const val = passwordInput.value;
+      if (val === ADMIN_PASSWORD) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        loginError.textContent = '';
+        showAnalytics();
+      } else {
+        loginError.textContent = 'Incorrect password. Try again.';
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    }
+
+    unlockBtn.addEventListener('click', attemptLogin);
+    passwordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') attemptLogin(); });
+    logoutBtn.addEventListener('click', showLogin);
+
+    // Auto-login if session exists
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      showAnalytics();
+    }
+
+    // ── SEEDED RANDOM ────────────────────────────────────────────
+    // Simple mulberry32 PRNG for consistent data across reloads
+    function mulberry32(seed) {
+      return function() {
+        let t = seed += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+
+    // ── GENERATE DATA ────────────────────────────────────────────
+    // Build 90 days of data ending today
+    function generateData() {
+      const rand = mulberry32(0xABCD1234);
+      const days = 90;
+      const dates = [];
+      const visitors = [];
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      for (let i = days - 1; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        dates.push(d);
+
+        // Slight upward trend: base grows from 8 to ~14 over 90 days
+        const trend = 8 + (14 - 8) * ((days - 1 - i) / (days - 1));
+
+        // Weekend dip
+        const dow = d.getDay(); // 0=Sun, 6=Sat
+        const weekendFactor = (dow === 0 || dow === 6) ? 0.65 : 1.0;
+
+        // ±5 random variation
+        const variation = (rand() - 0.5) * 10;
+        const count = Math.max(3, Math.round((trend + variation) * weekendFactor));
+        visitors.push(count);
+      }
+
+      return { dates, visitors };
+    }
+
+    const DATA = generateData();
+
+    // ── SLICE BY RANGE ────────────────────────────────────────────
+    function getSlice(days) {
+      return {
+        dates:    DATA.dates.slice(-days),
+        visitors: DATA.visitors.slice(-days),
+      };
+    }
+
+    // ── FORMAT DATE ───────────────────────────────────────────────
+    function fmtDate(d) {
+      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+
+    // ── CHART ─────────────────────────────────────────────────────
+    let chartInstance = null;
+
+    function renderChart(slice, rangeLabel) {
+      const labels = slice.dates.map(fmtDate);
+
+      if (chartInstance) {
+        chartInstance.data.labels = labels;
+        chartInstance.data.datasets[0].data = slice.visitors;
+        chartInstance.options.plugins.title.text = 'Daily Visitors — ' + rangeLabel;
+        chartInstance.update();
+        return;
+      }
+
+      const ctx = document.getElementById('visitors-chart').getContext('2d');
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Visitors',
+            data: slice.visitors,
+            borderColor: '#e85d04',
+            backgroundColor: 'rgba(232, 93, 4, 0.10)',
+            borderWidth: 2.5,
+            pointRadius: slice.visitors.length <= 10 ? 4 : 2,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#e85d04',
+            tension: 0.35,
+            fill: true,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Daily Visitors — ' + rangeLabel,
+              font: { family: 'Oswald', size: 16, weight: '600' },
+              color: '#1a2744',
+              padding: { bottom: 16 },
+            },
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: (items) => fmtDate(slice.dates[items[0].dataIndex]),
+                label: (item) => ' ' + item.raw + ' visitors',
+              },
+              backgroundColor: '#1a2744',
+              titleFont: { family: 'Oswald', size: 13 },
+              bodyFont: { family: 'Source Serif 4', size: 13 },
+              padding: 10,
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: '#e5e5e5' },
+              ticks: {
+                font: { family: 'Oswald', size: 11 },
+                color: '#999',
+                maxTicksLimit: 10,
+              }
+            },
+            y: {
+              grid: { color: '#e5e5e5' },
+              ticks: {
+                font: { family: 'Oswald', size: 11 },
+                color: '#999',
+                stepSize: 1,
+                precision: 0,
+              },
+              min: 0,
+            }
+          }
+        }
+      });
+    }
+
+    // ── COUNT-UP ANIMATION ────────────────────────────────────────
+    function animateCount(el, from, to, duration, formatter) {
+      const start = performance.now();
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(from + (to - from) * eased);
+        el.textContent = formatter ? formatter(current, to) : current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = formatter ? formatter(to, to) : to.toLocaleString();
+      }
+      requestAnimationFrame(step);
+    }
+
+    // ── STATS ─────────────────────────────────────────────────────
+    const PAGE_DIST = { Home: 0.50, Services: 0.30, Contact: 0.20 };
+
+    function calcStats(slice) {
+      const totalVisitors = slice.visitors.reduce((a, b) => a + b, 0);
+      const totalPageViews = Math.round(totalVisitors * 1.65); // avg ~1.65 pages per session
+
+      // Avg time: seeded per range using total as seed proxy
+      const avgSeconds = 105 + (totalVisitors % 100); // range ~1m45s–3m20s
+      const mins = Math.floor(avgSeconds / 60);
+      const secs = avgSeconds % 60;
+      const avgTime = mins + 'm ' + String(secs).padStart(2, '0') + 's';
+
+      const pageViews = {
+        Home:     Math.round(totalPageViews * PAGE_DIST.Home),
+        Services: Math.round(totalPageViews * PAGE_DIST.Services),
+        Contact:  Math.round(totalPageViews * PAGE_DIST.Contact),
+      };
+
+      return { totalVisitors, totalPageViews, pageViews, avgTime };
+    }
+
+    // ── RENDER STATS ──────────────────────────────────────────────
+    let prevStats = null;
+
+    function renderStats(stats) {
+      const from = prevStats || { totalVisitors: 0, totalPageViews: 0 };
+
+      animateCount(
+        document.getElementById('stat-visitors'),
+        from.totalVisitors, stats.totalVisitors, 800
+      );
+      animateCount(
+        document.getElementById('stat-pageviews'),
+        from.totalPageViews, stats.totalPageViews, 800
+      );
+
+      document.getElementById('stat-top-page').textContent = 'Home';
+
+      const avgEl = document.getElementById('stat-avg-time');
+      avgEl.textContent = stats.avgTime;
+
+      prevStats = stats;
+    }
+
+    // ── BREAKDOWN TABLE ───────────────────────────────────────────
+    function renderTable(stats) {
+      const body = document.getElementById('breakdown-body');
+      const total = stats.totalPageViews;
+      body.innerHTML = Object.entries(stats.pageViews).map(([page, views]) => `
+        <tr>
+          <td>${page}</td>
+          <td>${views.toLocaleString()}</td>
+          <td>${Math.round(views / total * 100)}%</td>
+        </tr>
+      `).join('');
+    }
+
+    // ── RANGE SWITCHING ───────────────────────────────────────────
+    const rangeBtns = document.querySelectorAll('.range-btn');
+    let activeRange = 30;
+    const rangeLabels = { 3: 'Last 3 Days', 30: 'Last 30 Days', 90: 'Last 90 Days' };
+
+    function switchRange(days) {
+      activeRange = days;
+      rangeBtns.forEach(b => b.classList.toggle('active', parseInt(b.dataset.days) === days));
+      const slice = getSlice(days);
+      const stats = calcStats(slice);
+      renderStats(stats);
+      renderTable(stats);
+      renderChart(slice, rangeLabels[days]);
+    }
+
+    rangeBtns.forEach(btn => {
+      btn.addEventListener('click', () => switchRange(parseInt(btn.dataset.days)));
+    });
+
+    // ── INIT ──────────────────────────────────────────────────────
+    let analyticsReady = false;
+
+    function initAnalytics() {
+      if (analyticsReady) return;
+      analyticsReady = true;
+
+      // Last updated timestamp
+      const now = new Date();
+      document.getElementById('last-updated').textContent =
+        'Last updated: ' + now.toLocaleDateString('en-US', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+
+      switchRange(30);
+    }
+  </script>
+</body>
+</html>
