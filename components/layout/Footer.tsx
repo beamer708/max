@@ -19,8 +19,12 @@ export function Footer() {
               <span className="footer-badge">
                 <i className="fa-solid fa-shield-halved" aria-hidden="true" style={{ marginRight: "6px", color: "var(--orange)" }}></i>Veteran Owned
               </span>
-              <span className="footer-badge">&#128106; Family Owned</span>
-              <span className="footer-badge">&#10003; Licensed</span>
+              <span className="footer-badge">
+                <i className="fa-solid fa-house-chimney-user" aria-hidden="true" style={{ marginRight: "6px", color: "var(--orange)" }}></i>Family Owned
+              </span>
+              <span className="footer-badge">
+                <i className="fa-solid fa-certificate" aria-hidden="true" style={{ marginRight: "6px", color: "var(--orange)" }}></i>Licensed
+              </span>
             </div>
           </div>
 
