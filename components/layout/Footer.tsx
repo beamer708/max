@@ -27,12 +27,20 @@ export function Footer() {
           {/* Col 2 — Links */}
           <div>
             <span className="footer-col-label">Pages</span>
-            <Link href="/"        className="footer-link">Home</Link>
-            <Link href="/services" className="footer-link">Services</Link>
-            <Link href="/contact"  className="footer-link">Contact</Link>
+            <Link href="/"         className="footer-link">Home</Link>
+            <Link href="/services"  className="footer-link">Services</Link>
+            <Link href="/about"     className="footer-link">About</Link>
+            <Link href="/contact"   className="footer-link">Contact</Link>
           </div>
 
-          {/* Col 3 — Contact */}
+          {/* Col 3 — More */}
+          <div>
+            <span className="footer-col-label">More</span>
+            <Link href="/service-areas" className="footer-link">Service Areas</Link>
+            <Link href="/faqs"          className="footer-link">FAQs</Link>
+          </div>
+
+          {/* Col 4 — Contact */}
           <div>
             <span className="footer-col-label">Contact</span>
             <a href="tel:+12677485636" className="footer-contact-item">

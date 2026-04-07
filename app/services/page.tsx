@@ -56,12 +56,23 @@ const SERVICES = [
   {
     id: "repairs",
     icon: "fa-solid fa-wrench",
-    title: "General Repairs",
+    title: "General Repairs & Handyman",
     desc: "Electrical fixture troubleshooting, common plumbing repairs, and general handyman work. Call us — we'll figure it out.",
     bullets: [
       "Electrical fixture and outlet work",
       "Common plumbing repairs",
       "General handyman services",
+    ],
+  },
+  {
+    id: "snow-removal",
+    icon: "fa-solid fa-snowflake",
+    title: "Snow Removal",
+    desc: "Reliable snow and ice removal for residential driveways, walkways, and commercial lots. Stay clear and safe all winter.",
+    bullets: [
+      "Driveway and walkway clearing",
+      "Ice treatment and salting",
+      "Commercial lot and entryway service",
     ],
   },
 ];

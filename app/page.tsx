@@ -59,7 +59,13 @@ export default function HomePage() {
     <main>
 
       {/* ── HERO ── */}
-      <section className="hero">
+      <section
+        className="hero"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 60L60 0M-15 15L15 -15M45 75L75 45' stroke='%23ffffff' stroke-width='0.75' fill='none' opacity='0.06'/%3E%3C/svg%3E"), linear-gradient(to bottom right, var(--navy), var(--navy-dark))`,
+          backgroundSize: "60px 60px, cover",
+        }}
+      >
         <div className="container">
           <span className="hero-eyebrow hero-elem">
             Delaware County, PA &middot; Veteran Owned &middot; Family Owned
@@ -159,6 +165,44 @@ export default function HomePage() {
                   </div>
                   <h3>{step.title}</h3>
                   <p>{step.desc}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section style={{ background: "var(--off-white)" }}>
+        <div className="container">
+          <FadeIn>
+            <span className="section-label">What Clients Say</span>
+            <h2>Trusted by Homeowners &amp; Property Managers</h2>
+          </FadeIn>
+          <div className="testimonials-grid" style={{ marginTop: "3rem" }}>
+            {[
+              {
+                quote: "Pete came out the same week I called and gave me a straight price before touching anything. He fixed a drainage issue we'd been dealing with for two years that two other guys couldn't sort out. Honestly the most reliable contractor I've hired in Havertown.",
+                author: "— Sarah M., Havertown homeowner",
+              },
+              {
+                quote: "We manage a few rental units in Drexel Hill and signed on for a quarterly maintenance contract. Having MNCK handle routine inspections has cut down our emergency calls significantly. Pete's team is consistent and communicates well — that alone is worth it.",
+                author: "— James K., Drexel Hill property manager",
+              },
+              {
+                quote: "I needed some exterior work done before winter — walkway repairs and gutter clearing. They showed up exactly when they said, did the job clean, and the price matched the quote. No surprises. I've already referred them to my neighbor.",
+                author: "— Linda R., Springfield homeowner",
+              },
+            ].map((t, i) => (
+              <FadeIn key={t.author} delay={i * 0.1} style={{ height: "100%" }}>
+                <div className="testimonial-card">
+                  <div className="testimonial-stars" aria-label="5 out of 5 stars">
+                    {"★★★★★".split("").map((star, si) => (
+                      <span key={si} style={{ color: "var(--orange)" }}>{star}</span>
+                    ))}
+                  </div>
+                  <p className="testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
+                  <span className="testimonial-author">{t.author}</span>
                 </div>
               </FadeIn>
             ))}

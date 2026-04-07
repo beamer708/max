@@ -138,11 +138,11 @@ export function ContactForm() {
             className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none ring-[#1C4EFF] transition focus:border-[#1C4EFF] focus:ring-2"
           >
             <option value="">Select service</option>
-            <option value="handyman-services">Handyman Services</option>
-            <option value="roof-repairs">Roof Repairs</option>
-            <option value="window-installation">Window Installation</option>
-            <option value="junk-cleanouts-removal">Junk Cleanouts &amp; Removal</option>
-            <option value="lawn-yard-services">Lawn &amp; Yard Services</option>
+            <option value="residential-maintenance">Residential Maintenance</option>
+            <option value="commercial-maintenance">Commercial Maintenance</option>
+            <option value="preventative-maintenance-contracts">Preventative Maintenance Contracts</option>
+            <option value="exterior-landscaping">Exterior &amp; Landscaping</option>
+            <option value="general-repairs-handyman">General Repairs &amp; Handyman</option>
             <option value="snow-removal">Snow Removal</option>
           </select>
           {errors.service ? <p className="mt-1 text-xs text-red-600">{errors.service}</p> : null}
