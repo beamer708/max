@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 /* ────────────────────────────────────────────────────────
    DESIGN TOKENS
@@ -1020,3 +1021,15 @@ footer {
   max-height: 400px;
   padding-bottom: 1.25rem;
 }
+
+/* ────────────────────────────────────────────────────────
+   SERVICE AREA MAP
+──────────────────────────────────────────────────────── */
+.service-area-map-wrap {
+  height: 480px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+@media (min-width: 768px) { .service-area-map-wrap { height: 560px; } }
