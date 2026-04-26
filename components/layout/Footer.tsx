@@ -31,8 +31,9 @@ export function Footer() {
           {/* Col 2 — Links */}
           <div>
             <span className="footer-col-label">Pages</span>
-            <Link href="/"         className="footer-link">Home</Link>
+            <Link href="/"          className="footer-link">Home</Link>
             <Link href="/services"  className="footer-link">Services</Link>
+            <Link href="/packages"  className="footer-link">Packages</Link>
             <Link href="/about"     className="footer-link">About</Link>
             <Link href="/contact"   className="footer-link">Contact</Link>
           </div>
