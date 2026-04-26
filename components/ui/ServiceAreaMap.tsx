@@ -1,35 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import type { LatLngExpression } from "leaflet";
+import { useEffect, useRef } from "react";
 
-// Fix Leaflet's default marker icon broken by webpack
-function FixLeafletIcons() {
-  const map = useMap();
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const L = require("leaflet");
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-      iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-      shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-    });
-    // suppress unused warning
-    void map;
-  }, [map]);
-  return null;
-}
-
-type Town = {
-  name: string;
-  lat: number;
-  lng: number;
-};
-
-const TOWNS: Town[] = [
+const TOWNS = [
   { name: "Havertown",         lat: 39.9837, lng: -75.3074 },
   { name: "Upper Darby",       lat: 39.9612, lng: -75.2699 },
   { name: "Springfield",       lat: 39.9301, lng: -75.3249 },
@@ -60,35 +33,56 @@ const TOWNS: Town[] = [
   { name: "Nether Providence", lat: 39.8951, lng: -75.3724 },
 ];
 
-// Center on Delaware County
-const CENTER: LatLngExpression = [39.9162, -75.3349];
-
 export function ServiceAreaMap() {
-  return (
-    <div className="service-area-map-wrap">
-      <MapContainer
-        center={CENTER}
-        zoom={12}
-        scrollWheelZoom={false}
-        style={{ height: "100%", width: "100%", borderRadius: "6px" }}
-      >
-        <FixLeafletIcons />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {TOWNS.map((town) => (
-          <Marker key={town.name} position={[town.lat, town.lng]}>
-            <Popup>
-              <strong style={{ fontFamily: "Oswald, sans-serif", textTransform: "uppercase", letterSpacing: "0.04em", color: "#1a2744" }}>
-                {town.name}
-              </strong>
-              <br />
-              <span style={{ fontSize: "0.8125rem", color: "#3d4d6a" }}>Service area &mdash; MNCK Property Maintenance</span>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
-  );
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<unknown>(null);
+
+  useEffect(() => {
+    if (!containerRef.current || mapRef.current) return;
+
+    // Dynamically import leaflet only on the client
+    import("leaflet").then((mod) => {
+      const L = mod.default;
+
+      // Fix broken default icon paths caused by webpack
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (L.Icon.Default.prototype as any)._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+        iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+      });
+
+      const map = L.map(containerRef.current!, {
+        center: [39.9162, -75.3349],
+        zoom: 12,
+        scrollWheelZoom: false,
+      });
+
+      mapRef.current = map;
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      TOWNS.forEach(({ name, lat, lng }) => {
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(
+            `<strong style="font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:0.04em;color:#1a2744">${name}</strong><br><span style="font-size:0.8125rem;color:#3d4d6a">Service area &mdash; MNCK Property Maintenance</span>`
+          );
+      });
+    });
+
+    return () => {
+      if (mapRef.current) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (mapRef.current as any).remove();
+        mapRef.current = null;
+      }
+    };
+  }, []);
+
+  return <div ref={containerRef} className="service-area-map-wrap" />;
 }

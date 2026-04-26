@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { FadeIn } from "@/components/ui/FadeIn";
-
-const ServiceAreaMap = dynamic(
-  () => import("@/components/ui/ServiceAreaMap").then((m) => m.ServiceAreaMap),
-  { ssr: false, loading: () => <div className="service-area-map-wrap" style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "var(--off-white)", color: "var(--text-muted)", fontSize: "0.9375rem" }}>Loading map&hellip;</div> }
-);
+import { ServiceAreaMapLoader } from "@/components/ui/ServiceAreaMapLoader";
 
 export const metadata: Metadata = {
   title: "Service Areas | MNCK Property Maintenance — Delaware County, PA",
@@ -73,7 +68,7 @@ export default function ServiceAreasPage() {
           </FadeIn>
 
           <div style={{ marginBottom: "3.5rem" }}>
-            <ServiceAreaMap />
+            <ServiceAreaMapLoader />
           </div>
 
           <FadeIn>
