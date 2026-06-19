@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Phone, Menu as MenuIcon, X } from "lucide-react";
+import { Phone, Menu as MenuIcon, X, ShoppingCart } from "lucide-react";
 import { colors, business } from "../theme.js";
+import { useCart } from "../context/CartContext.jsx";
 
 const navLinks = [
   { to: "/", label: "Home", end: true },
   { to: "/menu", label: "Menu" },
+  { to: "/order", label: "Order" },
   { to: "/deal", label: "The Deal" },
   { to: "/story", label: "Our Story" },
   { to: "/find-us", label: "Find Us" },
@@ -29,12 +31,7 @@ function Logo() {
       </span>
       <span
         className="display"
-        style={{
-          color: colors.cream,
-          fontSize: "1.4rem",
-          fontWeight: 700,
-          letterSpacing: "0.04em",
-        }}
+        style={{ color: colors.cream, fontSize: "1.4rem", fontWeight: 700, letterSpacing: "0.04em" }}
       >
         FEMI'S
       </span>
@@ -42,13 +39,51 @@ function Logo() {
   );
 }
 
+function CartButton({ onClick }) {
+  const { count } = useCart();
+  return (
+    <button
+      onClick={onClick}
+      aria-label={`Open cart, ${count} items`}
+      className="relative flex items-center justify-center"
+      style={{ background: "transparent", border: "none", color: colors.cream, cursor: "pointer", padding: "6px" }}
+    >
+      <ShoppingCart size={22} />
+      {count > 0 && (
+        <span
+          className="display"
+          style={{
+            position: "absolute",
+            top: "-2px",
+            right: "-4px",
+            backgroundColor: colors.gold,
+            color: colors.ink,
+            borderRadius: "999px",
+            minWidth: "18px",
+            height: "18px",
+            fontSize: "0.68rem",
+            fontWeight: 700,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "0 4px",
+          }}
+        >
+          {count}
+        </span>
+      )}
+    </button>
+  );
+}
+
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { setDrawerOpen } = useCart();
 
   const linkStyle = ({ isActive }) => ({
     color: isActive ? colors.gold : colors.cream,
     fontWeight: isActive ? 700 : 500,
-    fontSize: "0.95rem",
+    fontSize: "0.92rem",
     textDecoration: "none",
     letterSpacing: "0.02em",
   });
@@ -62,7 +97,7 @@ export default function Header() {
         <Logo />
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-6">
           {navLinks.map((l) => (
             <NavLink key={l.to} to={l.to} end={l.end} style={linkStyle}>
               {l.label}
@@ -71,19 +106,17 @@ export default function Header() {
         </nav>
 
         {/* Desktop right side */}
-        <div className="hidden lg:flex items-center gap-5">
+        <div className="hidden lg:flex items-center gap-4">
           <a
             href={business.phoneHref}
             className="flex items-center gap-2"
-            style={{ color: colors.cream, textDecoration: "none", fontWeight: 600, fontSize: "0.9rem" }}
+            style={{ color: colors.cream, textDecoration: "none", fontWeight: 600, fontSize: "0.88rem" }}
           >
             <Phone size={16} />
             {business.phone}
           </a>
-          <a
-            href={business.orderUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/order"
             className="display"
             style={{
               backgroundColor: colors.tomato,
@@ -98,19 +131,22 @@ export default function Header() {
             }}
           >
             Order Online
-          </a>
+          </Link>
+          <CartButton onClick={() => setDrawerOpen(true)} />
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="lg:hidden flex items-center justify-center"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          style={{ color: colors.cream, background: "transparent", border: "none", padding: "6px" }}
-        >
-          {open ? <X size={26} /> : <MenuIcon size={26} />}
-        </button>
+        {/* Mobile right side */}
+        <div className="lg:hidden flex items-center gap-1">
+          <CartButton onClick={() => setDrawerOpen(true)} />
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            style={{ color: colors.cream, background: "transparent", border: "none", padding: "6px", cursor: "pointer" }}
+          >
+            {open ? <X size={26} /> : <MenuIcon size={26} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -146,10 +182,9 @@ export default function Header() {
               <Phone size={16} />
               {business.phone}
             </a>
-            <a
-              href={business.orderUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/order"
+              onClick={() => setOpen(false)}
               className="display text-center"
               style={{
                 backgroundColor: colors.tomato,
@@ -163,7 +198,7 @@ export default function Header() {
               }}
             >
               Order Online
-            </a>
+            </Link>
           </div>
         </nav>
       )}
